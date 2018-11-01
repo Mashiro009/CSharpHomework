@@ -32,6 +32,10 @@ namespace ordertest
             this.Id = id;
             this.Name = name;
         }
+        public Customer(string name)
+        {
+            this.Name = name;
+        }
         public Customer() { }
 
         /// <summary>
@@ -40,7 +44,8 @@ namespace ordertest
         /// <returns>string:message of the Customer object</returns>
         public override string ToString()
         {
-            return $"customerId:{Id}, CustomerName:{Name}";
+            //return $"customerId:{Id}, CustomerName:{Name}";
+            return $"{Name}";
         }
 
 

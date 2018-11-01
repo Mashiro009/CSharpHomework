@@ -52,7 +52,8 @@ namespace ordertest {
         /// </summary>
         /// <returns>string:message of the Goods object</returns>
         public override string ToString() {
-            return $"Id:{Id}, Name:{Name}, Value:{Price}";
+            //return $"Id:{Id}, Name:{Name}, Value:{Price}";
+            return $"{Name}";
         }
     }
 }
