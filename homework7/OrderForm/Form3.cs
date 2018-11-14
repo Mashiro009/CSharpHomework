@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace OrderForm
 {
@@ -42,11 +43,21 @@ namespace OrderForm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            order.Id = uint.Parse(textBox1.Text);
-            order.Customer = new ordertest.Customer(textBox2.Text);
+            //order.Id = textBox1.Text;
+            if (!checkPhoneNumber(textBox1.Text))
+                throw new Exception("电话格式不正确，应为11位");
+
+            order.Customer = new ordertest.Customer(textBox1.Text,textBox2.Text);
             Form1.os.AddOrder(order);
             Form1.orderBindingSource.DataSource = Form1.os.Dict.Values.ToList();
             this.Close();
+        }
+
+        private bool checkPhoneNumber(string number)
+        {
+            Regex regex = new Regex("[0-9]{11}");
+            bool ok = regex.IsMatch(number);
+            return ok;
         }
     }
 }

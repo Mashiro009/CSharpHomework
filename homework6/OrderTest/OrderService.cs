@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.IO;
@@ -15,8 +18,8 @@ namespace ordertest {
     /// </summary>
     public class OrderService { 
 
-        private Dictionary<uint, Order> orderDict;
-        public Dictionary<uint, Order> Dict
+        private Dictionary<string, Order> orderDict;
+        public Dictionary<string, Order> Dict
         {
             get { return orderDict; }
         }
@@ -24,7 +27,24 @@ namespace ordertest {
         /// OrderService constructor
         /// </summary>
         public OrderService() {
-            orderDict = new Dictionary<uint, Order>();
+            orderDict = new Dictionary<string, Order>();
+        }
+
+        public void xsltToHtml()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"..\..\s.xml");
+
+            XPathNavigator nav = doc.CreateNavigator();
+            nav.MoveToRoot();
+
+            XslCompiledTransform xt = new XslCompiledTransform();
+            xt.Load(@"..\..\s.xslt");
+
+            FileStream outFileStream = File.OpenWrite(@"..\..\s.html");
+            XmlTextWriter writer =
+                new XmlTextWriter(outFileStream, System.Text.Encoding.UTF8);
+            xt.Transform(nav, null, writer);
         }
 
         public void XmlSerializeExport(XmlSerializer xmlser,string fileName)
@@ -63,7 +83,7 @@ namespace ordertest {
         /// cancel order
         /// </summary>
         /// <param name="orderId">id of the order which will be canceled</param> 
-        public void RemoveOrder(uint orderId) {
+        public void RemoveOrder(string orderId) {
               orderDict.Remove(orderId);
         }
 
@@ -80,7 +100,7 @@ namespace ordertest {
         /// </summary>
         /// <param name="orderId">id of the order to find</param>
         /// <returns>List<Order></returns> 
-        public Order GetById(uint orderId) {
+        public Order GetById(string orderId) {
             return orderDict[orderId];
         }
 
@@ -122,7 +142,7 @@ namespace ordertest {
         /// </summary>
         /// <param name="orderId"> id of the order whoes customer will be update</param>
         /// <param name="newCustomer">the new customer of the order which will be update</param> 
-        public void UpdateCustomer(uint orderId, Customer newCustomer) {
+        public void UpdateCustomer(string orderId, Customer newCustomer) {
             if (orderDict.ContainsKey(orderId)) {
                 orderDict[orderId].Customer = newCustomer;
             } else {

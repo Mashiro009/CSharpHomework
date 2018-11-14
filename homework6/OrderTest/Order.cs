@@ -13,22 +13,24 @@ namespace ordertest {
     public class Order {
 
         private List<OrderDetail> details=new List<OrderDetail>();
-
+        private static uint i = 0;
         /// <summary>
         /// Order constructor
         /// </summary>
         /// <param name="orderId">order id</param>
         /// <param name="customer">who orders goods</param>
-        public Order(uint orderId, Customer customer) {
-            Id = orderId;
+        public Order(Customer customer) {
+            string str = string.Format("{0:yyyyMMdd}", DateTime.Now);
+            Id = str + i.ToString("000");
             Customer = customer;
+            i = (i + 1) % 1000;
         }
 
         public Order() { }
         /// <summary>
         /// order id
         /// </summary>
-        public uint Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// the man who orders goods

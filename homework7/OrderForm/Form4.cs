@@ -24,12 +24,12 @@ namespace OrderForm
             InitializeComponent();
             label2.Text = id;
             textBox1.Text = customerName;
-            detailsBindingSource.DataSource = Form1.os.Dict[uint.Parse(id)].Details;
+            detailsBindingSource.DataSource = Form1.os.Dict[id].Details;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1.os.UpdateCustomer(uint.Parse(label2.Text), new ordertest.Customer(textBox1.Text));
+            Form1.os.UpdateCustomer(label2.Text, new ordertest.Customer(textBox1.Text));
             Form1.orderBindingSource.DataSource = Form1.os.Dict.Values.ToList();
             this.Close();
         }

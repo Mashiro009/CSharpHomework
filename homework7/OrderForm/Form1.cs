@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using ordertest;
 
 namespace OrderForm
@@ -20,8 +21,8 @@ namespace OrderForm
             InitializeComponent();
 
             //
-            Customer customer1 = new Customer(1, "Customer1");
-            Customer customer2 = new Customer(2, "Customer2");
+            Customer customer1 = new Customer("13288654452", "Customer1");
+            Customer customer2 = new Customer("15644832267", "Customer2");
 
             Goods milk = new Goods(1, "Milk", 69.9);
             Goods eggs = new Goods(2, "eggs", 4.99);
@@ -31,9 +32,9 @@ namespace OrderForm
             OrderDetail orderDetails2 = new OrderDetail(2, eggs, 2);
             OrderDetail orderDetails3 = new OrderDetail(3, milk, 1);
 
-            Order order1 = new Order(1, customer1);
-            Order order2 = new Order(2, customer2);
-            Order order3 = new Order(3, customer2);
+            Order order1 = new Order(customer1);
+            Order order2 = new Order(customer2);
+            Order order3 = new Order(customer2);
             order1.AddDetails(orderDetails1);
             order1.AddDetails(orderDetails2);
             order1.AddDetails(orderDetails3);
@@ -55,7 +56,7 @@ namespace OrderForm
         {
             //orderBindingSource.DataSource = os.Dict.Values.Where(
             //    od => od.Id == Int32.Parse(textBox1.Text)).ToList();
-            orderBindingSource.DataSource = os.GetById(uint.Parse(textBox1.Text));
+            orderBindingSource.DataSource = os.GetById(textBox1.Text);
             textBox1.Text = "";
         }
 
@@ -74,7 +75,7 @@ namespace OrderForm
         private void button4_Click(object sender, EventArgs e)
         {
             string str = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            uint i = uint.Parse(str);
+            string i = str;
             new Form2(i).Show();
         }
 
@@ -93,8 +94,16 @@ namespace OrderForm
         private void button7_Click(object sender, EventArgs e)
         {
             string s = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            os.RemoveOrder(uint.Parse(s));
+            os.RemoveOrder(s);
             orderBindingSource.DataSource = os.Dict.Values.ToList();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            XmlSerializer xmlser = new XmlSerializer(typeof(List<Order>));
+            string xmlFileName = @"..\..\s.xml";
+            os.XmlSerializeExport(xmlser, xmlFileName);
+            os.xsltToHtml();
         }
     }
 }

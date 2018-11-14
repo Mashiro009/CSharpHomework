@@ -12,7 +12,7 @@ namespace OrderForm
 {
     public partial class Form2 : Form
     {
-        public Form2(uint id)
+        public Form2(string id)
         {
             InitializeComponent();
             orderBindingSource.DataSource = Form1.os.Dict[id];

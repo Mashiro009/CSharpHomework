@@ -11,8 +11,8 @@ namespace ordertest {
     class MainClass {
         public static void Main() {
             try {
-                Customer customer1 = new Customer(1, "Customer1");
-                Customer customer2 = new Customer(2, "Customer2");
+                Customer customer1 = new Customer("13288654452", "Customer1");
+                Customer customer2 = new Customer("15644832267", "Customer2");
 
                 Goods milk = new Goods(1, "Milk", 69.9);
                 Goods eggs = new Goods(2, "eggs", 4.99);
@@ -22,9 +22,9 @@ namespace ordertest {
                 OrderDetail orderDetails2 = new OrderDetail(2, eggs, 2);
                 OrderDetail orderDetails3 = new OrderDetail(3, milk, 1);
 
-                Order order1 = new Order(1, customer1);
-                Order order2 = new Order(2, customer2);
-                Order order3 = new Order(3, customer2);
+                Order order1 = new Order(customer1);
+                Order order2 = new Order(customer2);
+                Order order3 = new Order(customer2);
                 order1.AddDetails(orderDetails1);
                 order1.AddDetails(orderDetails2);
                 order1.AddDetails(orderDetails3);
@@ -61,7 +61,7 @@ namespace ordertest {
                 //    Console.WriteLine(od.ToString());
 
                 //Console.WriteLine("Remove order(id=2) and qurey all");
-                os.RemoveOrder(2);
+                os.RemoveOrder(2.ToString());
                 //os.QueryAllOrders().ForEach(
                 //    od => Console.WriteLine(od));
 

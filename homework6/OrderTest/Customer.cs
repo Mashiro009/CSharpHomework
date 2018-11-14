@@ -14,7 +14,7 @@ namespace ordertest
         /// <summary>
         /// customer's identifier
         /// </summary>
-        public uint Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// customer's name
@@ -27,7 +27,7 @@ namespace ordertest
         /// </summary>
         /// <param name="id">customer id</param>
         /// <param name="name">customer name </param>
-        public Customer(uint id, string name)
+        public Customer(string id, string name)
         {
             this.Id = id;
             this.Name = name;
@@ -45,7 +45,7 @@ namespace ordertest
         public override string ToString()
         {
             //return $"customerId:{Id}, CustomerName:{Name}";
-            return $"{Name}";
+            return $"{Name} {Id}";
         }
 
 
