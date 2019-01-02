@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace ordertest {
         /// <summary>
         /// property : goods id
         /// </summary>
+        [Key]
         public uint Id { get; set; }
 
         /// <summary>

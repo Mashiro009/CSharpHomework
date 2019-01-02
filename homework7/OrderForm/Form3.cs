@@ -35,7 +35,7 @@ namespace OrderForm
             ordertest.Goods goods = new ordertest.Goods(
                 Convert.ToUInt32(listBox1.SelectedIndex), goodName, priceList[goodName]);
             ordertest.OrderDetail orderDetail = new ordertest.OrderDetail(
-                Convert.ToUInt32(order.Details.Count + 1), goods, uint.Parse(textBox3.Text));
+                Convert.ToString(order.Details.Count + 1), goods, uint.Parse(textBox3.Text));
             order.AddDetails(orderDetail);
             detailsBindingSource.DataSource = null;
             detailsBindingSource.DataSource = order.Details;
@@ -48,6 +48,7 @@ namespace OrderForm
                 throw new Exception("电话格式不正确，应为11位");
 
             order.Customer = new ordertest.Customer(textBox1.Text,textBox2.Text);
+            order.NewId();
             Form1.os.AddOrder(order);
             Form1.orderBindingSource.DataSource = Form1.os.Dict.Values.ToList();
             this.Close();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,23 +12,12 @@ namespace ordertest {
     /// to record the goods and its quantity
     /// </summary>
     public class OrderDetail {
-        /// <summary>
-        /// OrderDetail constructor
-        /// </summary>
-        /// <param name="id">orderDetail's id</param>
-        /// <param name="goods">orderDetail's goods</param>
-        /// <param name="quantity">goods quantity</param>
-        public OrderDetail(uint id, Goods goods, uint quantity) {
-            this.Id = id;
-            this.Goods = goods;
-            this.Quantity = quantity;
-        }
-        public OrderDetail() { }
+
         /// <summary>
         /// OrderDetail's id
         /// </summary>
-        public uint Id { get; set; }
-
+        [Key]
+        public string Id { get; set; }
         /// <summary>
         /// orderDetail's goods
         /// </summary>
@@ -37,6 +27,24 @@ namespace ordertest {
         /// goods quantity
         /// </summary>
         public uint Quantity { get; set; }
+
+        /// <summary>
+        /// OrderDetail constructor
+        /// </summary>
+        /// <param name="id">orderDetail's id</param>
+        /// <param name="goods">orderDetail's goods</param>
+        /// <param name="quantity">goods quantity</param>
+        public OrderDetail(string id, Goods goods, uint quantity) {
+            this.Id = Guid.NewGuid().ToString();
+            this.Goods = goods;
+            this.Quantity = quantity;
+        }
+        public OrderDetail() {
+            Id = Guid.NewGuid().ToString();
+        }
+
+
+
 
         public override bool Equals(object obj)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,25 +12,16 @@ namespace ordertest {
     /// to record each goods and its quantity in this ordering
     /// </summary>
     public class Order {
-
-        private List<OrderDetail> details=new List<OrderDetail>();
-        private static uint i = 0;
-        /// <summary>
-        /// Order constructor
-        /// </summary>
-        /// <param name="orderId">order id</param>
-        /// <param name="customer">who orders goods</param>
-        public Order(Customer customer) {
-            string str = string.Format("{0:yyyyMMdd}", DateTime.Now);
-            Id = str + i.ToString("000");
-            Customer = customer;
-            i = (i + 1) % 1000;
+        
+        public List<OrderDetail> Details
+        {
+            get => this.details;
+            set { }
         }
-
-        public Order() { }
         /// <summary>
         /// order id
         /// </summary>
+        [Key]
         public string Id { get; set; }
 
         /// <summary>
@@ -44,11 +36,37 @@ namespace ordertest {
             {
                 return details.Sum(d => d.Goods.Price * d.Quantity);
             }
-        } 
+            set { }
+
+        }
+
+
+
+        private List<OrderDetail> details = new List<OrderDetail>();
+        private static uint i = 0;
+
+        /// <summary>
+        /// Order constructor
+        /// </summary>
+        /// <param name="orderId">order id</param>
+        /// <param name="customer">who orders goods</param>
+        public Order(Customer customer) {
+            string str = string.Format("{0:yyyyMMdd}", DateTime.Now);
+            Id = str + i.ToString("000");
+            Customer = customer;
+            i = (i + 1) % 1000;
+        }
+
+        public Order() { }
+
             
-        
-        public List<OrderDetail> Details {
-            get =>this.details; }
+        public void NewId()
+        {
+            string str = string.Format("{0:yyyyMMdd}", DateTime.Now);
+            Id = str + i.ToString("000");
+            i = (i + 1) % 1000;
+        }
+
 
         /// <summary>
         /// add new orderDetail to order
@@ -65,9 +83,10 @@ namespace ordertest {
         /// remove orderDetail by orderDetailId from order
         /// </summary>
         /// <param name="orderDetailId">id of the orderDetail which will be removed</param>
-        public void RemoveDetails(uint orderDetailId) {
+        public void RemoveDetails(string orderDetailId) {
             details.RemoveAll(d =>d.Id==orderDetailId);
         }
+
 
         /// <summary>
         /// override ToString

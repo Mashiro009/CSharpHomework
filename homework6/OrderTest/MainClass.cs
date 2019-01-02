@@ -18,9 +18,9 @@ namespace ordertest {
                 Goods eggs = new Goods(2, "eggs", 4.99);
                 Goods apple = new Goods(3, "apple", 5.59);
 
-                OrderDetail orderDetails1 = new OrderDetail(1, apple, 800);
-                OrderDetail orderDetails2 = new OrderDetail(2, eggs, 2);
-                OrderDetail orderDetails3 = new OrderDetail(3, milk, 1);
+                OrderDetail orderDetails1 = new OrderDetail(1.ToString(), apple, 800);
+                OrderDetail orderDetails2 = new OrderDetail(2.ToString(), eggs, 2);
+                OrderDetail orderDetails3 = new OrderDetail(3.ToString(), milk, 1);
 
                 Order order1 = new Order(customer1);
                 Order order2 = new Order(customer2);
